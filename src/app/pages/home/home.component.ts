@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    //si il y a abonnement, on se désabonne pour éviter les fuites de données
     if(this.olympicSubscription){
       this.olympicSubscription.unsubscribe()
     }
@@ -26,8 +27,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getData(): void {
+    //on récupère les données depuis le service avec un abonnement
     this.olympicSubscription = this.olympicService.getOlympics().subscribe( data =>{
         this.olympicData = data;
+        console.log(this.olympicData);
+        
       })     
   }
   
