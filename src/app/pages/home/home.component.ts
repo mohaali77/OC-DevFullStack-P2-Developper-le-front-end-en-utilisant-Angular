@@ -10,7 +10,9 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   olympicSubscription! : Subscription
-   olympicData! : Olympic[] | undefined
+  olympicData! : Olympic[] | undefined
+  numberOfJos: number = 0;
+  numberOfCountries: number = 0;
 
   constructor(private olympicService: OlympicService) {}
 
@@ -31,15 +33,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     //on récupère les données depuis le service avec un abonnement
     this.olympicSubscription = this.olympicService.getOlympics().subscribe( data =>{
         this.olympicData = data;
-        console.log(this.olympicData);
-        this.displayData()
+        this.displayDataPanel()
         
       })     
      
   }
 
-  displayData(){
-      console.log(this.olympicData);
+  displayDataPanel(){
+    if(this.olympicData && this.olympicData.length>0){
+
+    this.numberOfCountries = this.olympicData.length
+    this.numberOfJos = this.olympicData[0].participations.length
+    
+  }
       
   }
   
