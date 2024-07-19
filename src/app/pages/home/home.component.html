@@ -4,3 +4,4 @@
 <div *ngFor="let data of olympicData ">
     <div>{{data.country}}</div>
 </div>
+<app-pie-chart *ngIf="olympicData && olympicData.length > 0" [data]="olympicData"></app-pie-chart>
