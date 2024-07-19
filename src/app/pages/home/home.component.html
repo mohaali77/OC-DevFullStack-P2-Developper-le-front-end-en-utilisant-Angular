@@ -1,7 +1,21 @@
 <h2>Olympic games app</h2>
 <hr />
-<p>data loaded</p>
-<div *ngFor="let data of olympicData ">
-    <div>{{data.country}}</div>
-</div>
-<app-pie-chart *ngIf="olympicData && olympicData.length > 0" [data]="olympicData"></app-pie-chart>
+
+<main>
+    <h2 class="title">Medals per Countries</h2>
+    <section class='infos'>
+
+        <div class="info-panel">
+            <p>France</p>
+            <p class="number">0</p>
+        </div>
+        
+        <div class="info-panel">
+            <p>US</p>
+            <p class="number">0</p>
+        </div>
+        
+    </section>
+    <app-pie-chart *ngIf="olympicData && olympicData.length > 0" [data]="olympicData"></app-pie-chart>
+</main>
+  
