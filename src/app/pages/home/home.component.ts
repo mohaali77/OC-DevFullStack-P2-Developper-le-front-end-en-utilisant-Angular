@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getData()    
+    
   }
 
   ngOnDestroy(): void {
@@ -32,8 +33,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympicSubscription = this.olympicService.getOlympics().subscribe( data =>{
         this.olympicData = data;
         console.log(this.olympicData);
+        this.displayData()
         
       })     
+     
+  }
+
+  displayData(){
+      console.log(this.olympicData);
+      
   }
   
 
