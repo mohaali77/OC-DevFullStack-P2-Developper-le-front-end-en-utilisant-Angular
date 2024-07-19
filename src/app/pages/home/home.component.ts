@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.component';
 
 @Component({
   selector: 'app-home',
