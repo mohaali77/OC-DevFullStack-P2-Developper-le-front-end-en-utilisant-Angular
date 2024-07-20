@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataPie } from 'src/app/core/models/DataPie';
 import { Olympic } from 'src/app/core/models/Olympic';
 
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
-  styleUrl: './pie-chart.component.scss'
+  styleUrls: ['./pie-chart.component.scss'] // Correction de styleUrl en styleUrls
 })
-
-
 export class PieChartComponent implements OnInit {
+
+  constructor(private router: Router) { }
+
   @Input() data!: Olympic[] | undefined;
 
-  pieChartData : any = []
+  pieChartData: DataPie[] = [];
 
-//j'ai les data, je veuxx convertir les data
-  
   view: [number, number] = [800, 500];
   gradient: boolean = true;
   showLegend: boolean = false;
@@ -24,46 +23,37 @@ export class PieChartComponent implements OnInit {
   isDoughnut: boolean = false;
 
   ngOnInit(): void {
-    this.createPieChartData()
-      
+    this.createPieChartData();
   }
 
-  createPieChartData(): any {
 
-
-  }
-
-  onSelect(data:any): void {
-   
+  onSelect(data: any): void {
     let countrySelected = data.name;
-
     let foundObject = this.data?.find(element => element.country === countrySelected);
+    this.router.navigate(['/details', foundObject?.id]);
 
   }
 
-  convertData():any{
+  createPieChartData(): void {
+    if (this.data) {
+      this.pieChartData = this.data.map(element => {
+        let medalsTotal = 0;
 
-    this.pieChartData = this.data?.map(element => {
-      let medalsTotal = 0;
-  
-      // on parcours le tableau "participation" pour chaque objets/pays
-      element.participations.forEach(participation => {
-        //on ajoute chaque médailles remportés à chaque participation au total des médailles
-        medalsTotal += participation.medalsCount;
+        // On parcourt le tableau "participation" pour chaque objet/pays
+        element.participations.forEach(participation => {
+          // On ajoute chaque médaille remportée à chaque participation au total des médailles
+          medalsTotal += participation.medalsCount;
+        });
+
+        // Pour chaque pays, on retourne un objet avec le nom du pays et le total des médailles
+        return { name: element.country, value: medalsTotal } as DataPie;
       });
-  
-      // pour chaque pays, on retourne un objet avec l'ID du pays, le nom du pays et le total des médailles
-      return { id: element.id, country: element.country, medalsTotal: medalsTotal };
-    });
-
+    }
   }
 
-
-  onActivate(data:any): void {    
+  onActivate(data: any): void {
   }
 
-  onDeactivate(data:any): void {
+  onDeactivate(data: any): void {
   }
-
-  
 }
