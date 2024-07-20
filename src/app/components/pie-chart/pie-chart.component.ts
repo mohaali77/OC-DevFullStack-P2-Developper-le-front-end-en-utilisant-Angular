@@ -26,14 +26,6 @@ export class PieChartComponent implements OnInit {
     this.createPieChartData();
   }
 
-
-  onSelect(data: any): void {
-    let countrySelected = data.name;
-    let foundObject = this.data?.find(element => element.country === countrySelected);
-    this.router.navigate(['/details', foundObject?.id]);
-
-  }
-
   createPieChartData(): void {
     if (this.data) {
       this.pieChartData = this.data.map(element => {
@@ -49,6 +41,14 @@ export class PieChartComponent implements OnInit {
         return { name: element.country, value: medalsTotal } as DataPie;
       });
     }
+  }
+
+  onSelect(data: any): void {
+    //fonction qui permet de naviguer vers le pays cliqué
+    let countrySelected = data.name;
+    let foundObject = this.data?.find(element => element.country === countrySelected);
+    this.router.navigate(['/details', foundObject?.id]);
+
   }
 
   onActivate(data: any): void {
