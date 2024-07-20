@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   displayDataPanel(){
+    //affiche le nombre de pays totals et le nombre de JO total
     if(this.olympicData && this.olympicData.length>0){
 
     this.numberOfCountries = this.olympicData.length
