@@ -1,5 +1,6 @@
-<ngx-charts-line-chart [view]="view" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
+<ngx-charts-line-chart   (window:resize)="onResize($event)"
+ [view]="view" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
+    [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
     [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="lineChartData" (select)="onSelect($event)"
     (activate)="onActivate($event)" (deactivate)="onDeactivate($event)" [yScaleMin]="yScaleMin" [yScaleMax]="yScaleMax">
 </ngx-charts-line-chart>
