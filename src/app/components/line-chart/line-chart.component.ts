@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NumberValue, partition } from 'd3';
+import { Component, OnInit, Input, HostListener, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { DataLine } from 'src/app/core/models/DataLine';
 import { Olympic } from 'src/app/core/models/Olympic';
 
@@ -8,12 +8,10 @@ import { Olympic } from 'src/app/core/models/Olympic';
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss']
 })
-export class LineChartComponent implements OnInit {
-
-  constructor(){}
+export class LineChartComponent implements OnInit, OnDestroy {
 
   @Input() data!: Olympic | undefined;
-  lineChartData : DataLine[] | undefined = [] 
+  lineChartData: DataLine[] | undefined = [];
 
   view: [number, number] = [800, 600];
   legend: boolean = false;
@@ -26,28 +24,46 @@ export class LineChartComponent implements OnInit {
   xAxisLabel: string = 'Years';
   yAxisLabel: string = 'Medals';
   timeline: boolean = true;
-  yScaleMin: number = Infinity; 
-  yScaleMax: number = -Infinity; 
-  
+  yScaleMin: number = Infinity;
+  yScaleMax: number = -Infinity;
 
-  ngOnInit(): void {        
-    this.adjustScale()
+  constructor() {
+    if (innerWidth <= 768) {
+      this.view = [innerWidth / 1, 400];
+    } else {
+      this.view = [innerWidth / 1.3, 600];
+    }
+}
+
+  onResize(event:any) {
+    
+    if (window.innerWidth <= 768) {
+      this.view = [event.target.innerWidth / 1, 600];
+    } else {
+      this.view = [event.target.innerWidth / 1.3, 600];
+    }
+  }
+
+  ngOnInit(): void {
+    this.adjustScale();
     this.createLineChartData();
   }
 
-  adjustScale(){
+  ngOnDestroy(): void {
+  }
+
+  adjustScale(): void {
     this.data?.participations.forEach(participation => {
       if (participation.medalsCount < this.yScaleMin) {
-        this.yScaleMin = participation.medalsCount - 5 ;
+        this.yScaleMin = participation.medalsCount - 5;
       }
       if (participation.medalsCount > this.yScaleMax) {
-        this.yScaleMax = participation.medalsCount + 5 ;
+        this.yScaleMax = participation.medalsCount + 5;
       }
     });
   }
 
-  createLineChartData() : DataLine[] {
-
+  createLineChartData(): DataLine[] {
     return this.lineChartData = [{
       name: this.data?.country,
       series: this.data?.participations.map(participation => ({
@@ -56,15 +72,8 @@ export class LineChartComponent implements OnInit {
       })) ?? []
     }];
   }
-  
 
-  onSelect(data:any): void {
-  }
-
-  onActivate(data:any): void {
-  }
-
-  onDeactivate(data:any): void {
-  }
-
+  onSelect(data: any): void {}
+  onActivate(data: any): void {}
+  onDeactivate(data: any): void {}
 }
