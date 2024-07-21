@@ -11,53 +11,54 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class DetailsComponent implements OnInit, OnDestroy {
 
-  constructor(private olympicService : OlympicService, private route : ActivatedRoute){}
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute) { }
 
-  olympicSubscription! : Subscription
-  routeSubscription! : Subscription
+  olympicSubscription!: Subscription
+  olympicData!: Olympic | undefined
 
-  olympicData! : Olympic | undefined
-
-  numberOfEntries! : number
-  numberOfMedals! : number
-  numberOfAthletes! : number
+  numberOfEntries: number | undefined = 0
+  numberOfMedals: number = 0
+  numberOfAthletes: number = 0
+  countryName: string | undefined = ''
 
   countryId!: number;
 
   ngOnInit(): void {
-      this.getParamsId()
-      this.getData()
-      this.displayDataPanel()
+    this.getParamsId()
+    this.getData()
   }
 
   ngOnDestroy(): void {
     this.olympicSubscription.unsubscribe()
   }
 
-  displayDataPanel(){
-    /*this.numberOfEntries = this.olympicData?.participations.length
-    this.numberOfMedals = this.olympicData?.
-    this.numberOfAthletes = */
+  displayDataPanel(): void {
+
+    this.countryName = this.olympicData?.country
+    this.numberOfEntries = this.olympicData?.participations.length
+
+    this.olympicData?.participations.map(element => {
+      this.numberOfMedals += element.medalsCount
+      this.numberOfAthletes += element.athleteCount
+    })
+
 
   }
 
-  getParamsId(){
+  getParamsId(): void {
     this.route.params.subscribe(params => {
-      this.countryId = Number(params['id']); 
+      this.countryId = Number(params['id']);
       console.log('Test ID:', this.countryId);
     });
   }
 
-  getData(){
+  getData(): void {
     this.olympicSubscription = this.olympicService.getOlympicById(this.countryId).subscribe(
-      data => this.olympicData = data
+      data => {
+        this.olympicData = data
+        this.displayDataPanel()
+      }
     )
-
-    if (this.olympicData){
-      console.log(this.olympicData);
-      
-    }
-    
   }
 
 }
