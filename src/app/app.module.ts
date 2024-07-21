@@ -9,11 +9,13 @@ import { DetailsComponent } from './pages/details/details.component';
 import { LineChartComponent } from "./components/line-chart/line-chart.component";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './components/header/header.component'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, DetailsComponent, NotFoundComponent, HeaderComponent, PieChartComponent, LineChartComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
