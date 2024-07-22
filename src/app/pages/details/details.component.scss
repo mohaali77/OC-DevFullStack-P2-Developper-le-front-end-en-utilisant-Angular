@@ -1,3 +1,15 @@
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
 main{
     display: flex;
     justify-content: center;
@@ -10,11 +22,24 @@ main{
         align-items: center;
         border : 2px solid #04838f;
         background: #04838f;
-        border-radius: 15px;
-        font-size: 16px;
+        border-radius: 10px;
+        font-size: 25px;
         font-weight: lighter;
         color: #ffff;
-        padding: 15px;
+        padding: 10px;
+        animation: opacity 1s;
+    }
+
+    @keyframes opacity {
+        0%{
+            opacity: 0%;
+            margin-top: 0px;
+        }
+
+        100%{
+            opacity: 100%;
+            margin-top: 20px;
+        }
     }
 
 
@@ -29,10 +54,11 @@ main{
             flex-direction: column;
             align-items: center;
             border : 2px solid #04838f;
-            border-radius: 15px;
+            border-radius: 10px;
             color: grey;
             padding: 0px 6px;
             margin: 0px 5px;
+              
         
             p{
                 margin: 7px 0px;
@@ -48,3 +74,15 @@ main{
 
 }
 
+@media screen and (max-width: 390px){
+    .info-panel {
+        font-size: 16px;
+    }
+}
+
+
+@media screen and (min-width: 391px){
+    .info-panel {
+        font-size: 18px;
+    }
+}
