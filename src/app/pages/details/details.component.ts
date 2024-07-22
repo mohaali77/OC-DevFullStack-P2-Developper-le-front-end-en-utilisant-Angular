@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -11,7 +11,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class DetailsComponent implements OnInit, OnDestroy {
 
-  constructor(private olympicService: OlympicService, private route: ActivatedRoute) { }
+  constructor(private olympicService: OlympicService, private route: ActivatedRoute, private router: Router) { }
 
   olympicSubscription!: Subscription
   olympicData!: Olympic | undefined
@@ -52,11 +52,26 @@ export class DetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  returnErrorPage(){
+
+    setTimeout(()=>{
+      if (this.olympicData === undefined){
+      this.router.navigate(['/**']);
+    }
+    }, 100)
+
+    
+  }
+
   getData(): void {
     this.olympicSubscription = this.olympicService.getOlympicById(this.countryId).subscribe(
       data => {
-        this.olympicData = data
-        this.displayDataPanel()
+        if(data){
+          this.olympicData = data;
+          this.displayDataPanel()
+        } else {    
+        this.returnErrorPage()  
+       } 
       }
     )
   }
