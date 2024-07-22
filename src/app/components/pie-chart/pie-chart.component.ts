@@ -10,7 +10,11 @@ import { Olympic } from 'src/app/core/models/Olympic';
 })
 export class PieChartComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+
+      this.view = [innerWidth / 1, 0];
+    
+   }
 
   @Input() data!: Olympic[] | undefined;
 
@@ -23,6 +27,11 @@ export class PieChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.createPieChartData();
+  }
+
+  onResize(event:any) {
+      this.view = [event.target.innerWidth / 1, 0];
+    
   }
 
   createPieChartData(): void {

@@ -1,0 +1,29 @@
+::ng-deep .ngx-charts-tooltip-content {
+    background-color: #04838f !important;
+
+    svg {
+        height: 15px;
+        fill: white;
+        transform: rotate(180deg);
+        }
+
+    .tooltip-caret.position-top {
+        border-top-color: #04838f !important;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2) !important;
+    }
+        
+      
+}
+
+::ng-deep .ngx-charts{
+    .pie-label{
+        font-size: 18px;
+    }
+
+    .pie-label-line {
+        stroke-width: 2px;
+
+    }
+}
+  
+  

@@ -38,7 +38,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
   onResize(event:any) {
     
     if (window.innerWidth <= 768) {
-      this.view = [event.target.innerWidth / 1, 600];
+      this.view = [event.target.innerWidth / 1, 400];
     } else {
       this.view = [event.target.innerWidth / 1.3, 600];
     }

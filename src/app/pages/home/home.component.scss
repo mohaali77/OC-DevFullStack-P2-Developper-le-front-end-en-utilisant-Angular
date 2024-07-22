@@ -4,9 +4,7 @@ main{
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    font-family: 'MontSerrat', sans-serif;
-    font-weight: 100;
-
+    
     .title{
         display: flex;
         flex-direction: column;
@@ -38,7 +36,6 @@ main{
     .infos{
         display: flex;
         justify-content: center;
-        margin-bottom: 40px;
 
         
         .info-panel{
