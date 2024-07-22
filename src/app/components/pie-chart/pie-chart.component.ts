@@ -17,7 +17,6 @@ export class PieChartComponent implements OnInit {
   pieChartData: DataPie[] = [];
 
   view: [number, number] = [800, 500];
-  gradient: boolean = true;
   showLegend: boolean = false;
   showLabels: boolean = true;
   isDoughnut: boolean = false;
@@ -47,7 +46,13 @@ export class PieChartComponent implements OnInit {
     //fonction qui permet de naviguer vers le pays cliqué
     let countrySelected = data.name;
     let foundObject = this.data?.find(element => element.country === countrySelected);
-    this.router.navigate(['/details', foundObject?.id]);
+
+    if  (foundObject?.id){
+      this.router.navigate(['/details', foundObject?.id]);
+    }else{
+      this.router.navigate(['/**']);
+    }
+    
 
   }
 
