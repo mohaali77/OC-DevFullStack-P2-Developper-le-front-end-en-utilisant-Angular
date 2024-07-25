@@ -1,13 +1,14 @@
-@keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
+
+@keyframes opacity {
+    0%{
+        opacity: 0%;
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
+
+    100%{
+        opacity: 100%;
     }
-  }
+}
+
 
 
 main{
@@ -30,24 +31,12 @@ main{
         animation: opacity 1s;
     }
 
-    @keyframes opacity {
-        0%{
-            opacity: 0%;
-            margin-top: 0px;
-        }
-
-        100%{
-            opacity: 100%;
-            margin-top: 20px;
-        }
-    }
-
 
     .infos{
         display: flex;
         justify-content: center;
         margin-bottom: 40px;
-
+        animation: opacity 2s;
         
         .info-panel{
             display: flex;
