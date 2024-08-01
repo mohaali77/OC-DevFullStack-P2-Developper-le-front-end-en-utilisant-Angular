@@ -7,8 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  isDetailsPage: boolean = false; 
 
+  /**
+   * Si isDetailsPage est false, on affiche un header sans bouton retour. Si true, on affiche un bouton.
+   */
+  isDetailsPage: boolean = false; 
 
   constructor(private router: Router) { }
 
@@ -17,6 +20,9 @@ export class HeaderComponent implements OnInit {
     this.extractDetailsSegment();
   }
 
+   /**
+   * Fonction qui permet de définir si isDetailsPage est true ou non, si nous sommes sur la page de détails
+   */
   extractDetailsSegment(): void {
     const urlSegments = this.router.url.split('/');    
     const detailsSegment = urlSegments.find(element => element === 'details');
