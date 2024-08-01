@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, HostListener, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { DataLine } from 'src/app/core/models/DataLine';
 import { Olympic } from 'src/app/core/models/Olympic';
 
@@ -13,6 +12,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
   @Input() data!: Olympic | undefined;
   lineChartData: DataLine[] | undefined = [];
 
+
+/**
+ * Les différents paramètres pour initialiser le graphique
+ */
   view: [number, number] = [800, 600];
   legend: boolean = false;
   showLabels: boolean = true;
@@ -35,6 +38,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }
 }
 
+/**
+ * 
+ */
+
   onResize(event:any) {
     
     if (window.innerWidth <= 768) {
@@ -52,6 +59,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
+    /**
+   * Fonction qui va ajuster les échelles en fonctions des valeurs pour avoir un meilleur visuel. 
+   * On définit une échelle sur +infinis et l'autre sur -infinis. 
+   * Si le nombre de médaille est inférieur à -infini on ajuste l'échelle à 5 cran en dessous du nombre de médailles
+   * Si le nombre de médaille est supérieur à +infini on ajuste l'échelle à 5 cran au dessus du nombre de médailles
+   * */
   adjustScale(): void {
     this.data?.participations.forEach(participation => {
       if (participation.medalsCount < this.yScaleMin) {
@@ -63,6 +76,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Fonction qui créer les données qui seront utilisées par le graphique   
+   * */
   createLineChartData(): DataLine[] {
     return this.lineChartData = [{
       name: this.data?.country,
