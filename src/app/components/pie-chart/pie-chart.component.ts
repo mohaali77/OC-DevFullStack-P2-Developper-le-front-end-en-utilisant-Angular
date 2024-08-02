@@ -11,7 +11,10 @@ import { Olympic } from 'src/app/core/models/Olympic';
 export class PieChartComponent implements OnInit {
 
   constructor(private router: Router) {
-
+    /**
+   * Permet d'ajuster, avant l'initialisation du composant de définir, la proportion du graphique
+   * en fonction de la taille de l'écran 
+   */
     this.view = [innerWidth / 1, 0];
 
   }
@@ -64,6 +67,7 @@ export class PieChartComponent implements OnInit {
    * On utilise la méthode find pour retrouvé le pays, grâce au nom
    * Si on retrouve bien l'id du pays, on le renvoi vers la page de détails avec son id
    * Sinon on le renvoi vers une page d'erreur
+   * @param data Les données présent dans le graphique
    **/
   onSelect(data: any): void {
     let countrySelected = data.name;
