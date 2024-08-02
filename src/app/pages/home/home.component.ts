@@ -9,46 +9,59 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  olympicSubscription! : Subscription
-  olympicData! : Olympic[] | undefined
+
+  olympicSubscription!: Subscription
+  olympicData!: Olympic[] | undefined
   numberOfJos: number = 0;
   numberOfCountries: number = 0;
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService) { }
 
+  /**
+   * Lors de l'initialisation du composant, on appel la fonction
+   * qui nous permet de récupérer les données depuis le service. 
+   */
   ngOnInit(): void {
-    this.getData()    
-    
+    this.getData()
   }
 
+  /**
+   * Lors de la destruction du composant, si il y a un abonnement
+   * on se désabonne pour éviter les fuites de données. 
+   */
   ngOnDestroy(): void {
-    //si il y a abonnement, on se désabonne pour éviter les fuites de données
-    if(this.olympicSubscription){
+    if (this.olympicSubscription) {
       this.olympicSubscription.unsubscribe()
     }
-    
+
   }
 
+  /**
+   * Fonction qui permet de récupérer les données depuis le service 
+   * en souscrivant à un abonnement de l'observable. 
+   */
   getData(): void {
-    //on récupère les données depuis le service avec un abonnement
-    this.olympicSubscription = this.olympicService.getOlympics().subscribe( data =>{
-        this.olympicData = data;
-        this.displayDataPanel()
-        
-      })     
-     
+    this.olympicSubscription = this.olympicService.getOlympics().subscribe(data => {
+      this.olympicData = data;
+      this.displayDataPanel()
+
+    })
+
   }
 
-  displayDataPanel(){
-    //affiche le nombre de pays totals et le nombre de JO total
-    if(this.olympicData && this.olympicData.length>0){
+  /**
+   * Fonction qui va attribuer aux variable des valeurs 
+   * pour indiquer le nombre total de pays, et le nombre de jo
+   */
+  displayDataPanel() {
+    if (this.olympicData && this.olympicData.length > 0) {
 
-    this.numberOfCountries = this.olympicData.length
-    this.numberOfJos = this.olympicData[0].participations.length
-    
+      this.numberOfCountries = this.olympicData.length
+      this.numberOfJos = this.olympicData[0].participations.length
+
+    }
+
   }
-      
-  }
-  
+
 
 }

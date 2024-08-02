@@ -11,7 +11,8 @@ export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[]>([]);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
 
   loadInitialData() {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
@@ -26,13 +27,23 @@ export class OlympicService {
     );
   }
 
-  getOlympics() : Observable <Olympic[] | undefined> {
-    return this.olympics$.asObservable(); 
+  /**
+   * Simple service qui permet de récupérer les données de tous les pays
+   * @returns {Observable<Olympic[] | undefined>} Un observable qui émet les données olympiques des pays, ou `undefined`
+   */
+  getOlympics(): Observable<Olympic[] | undefined> {
+    return this.olympics$.asObservable();
   }
 
-  getOlympicById(id : number) : Observable <Olympic | undefined> {
-     return this.olympics$.asObservable().pipe(
-       map( olympics =>  olympics.find((olympic) => olympic.id === id)
-    ))
+  /**
+   * Service qui permet de récupérer les données spécifiques d'un pays à l'aide de son id.
+   * Méthode find utilisé pour comparé l'id en paramètre, et l'id du tableau d'olympic
+   * @param {number} id - L'identifiant unique du pays pour lequel les données olympiques doivent être récupérées.
+   * @returns {Observable<Olympic | undefined>} - Un observable qui émet les données olympiques du pays correspondant, ou `undefined` si aucun pays avec cet id n'est trouvé.
+   */
+  getOlympicById(id: number): Observable<Olympic | undefined> {
+    return this.olympics$.asObservable().pipe(
+      map(olympics => olympics.find((olympic) => olympic.id === id)
+      ))
   }
 }

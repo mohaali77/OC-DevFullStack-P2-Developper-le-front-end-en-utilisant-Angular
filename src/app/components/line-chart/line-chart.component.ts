@@ -13,9 +13,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
   lineChartData: DataLine[] | undefined = [];
 
 
-/**
- * Les différents paramètres pour initialiser le graphique
- */
+  /**
+   * On définit les différents paramètres du graphique pour l'initialiser
+   */
   view: [number, number] = [800, 600];
   legend: boolean = false;
   showLabels: boolean = true;
@@ -36,14 +36,14 @@ export class LineChartComponent implements OnInit, OnDestroy {
     } else {
       this.view = [innerWidth / 1.3, 600];
     }
-}
+  }
 
-/**
- * 
- */
+  /**
+   * fonction
+   */
 
-  onResize(event:any) {
-    
+  onResize(event: any) {
+
     if (window.innerWidth <= 768) {
       this.view = [event.target.innerWidth / 1, 400];
     } else {
@@ -59,12 +59,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-    /**
-   * Fonction qui va ajuster les échelles en fonctions des valeurs pour avoir un meilleur visuel. 
-   * On définit une échelle sur +infinis et l'autre sur -infinis. 
-   * Si le nombre de médaille est inférieur à -infini on ajuste l'échelle à 5 cran en dessous du nombre de médailles
-   * Si le nombre de médaille est supérieur à +infini on ajuste l'échelle à 5 cran au dessus du nombre de médailles
-   * */
+  /**
+ * Fonction qui va ajuster les échelles en fonctions des valeurs pour avoir un meilleur visuel. 
+ * On définit une échelle sur +infinis et l'autre sur -infinis. 
+ * Si le nombre de médaille est inférieur à -infini on ajuste l'échelle à 5 cran en dessous du nombre de médailles
+ * Si le nombre de médaille est supérieur à +infini on ajuste l'échelle à 5 cran au dessus du nombre de médailles
+ * */
   adjustScale(): void {
     this.data?.participations.forEach(participation => {
       if (participation.medalsCount < this.yScaleMin) {
@@ -89,7 +89,7 @@ export class LineChartComponent implements OnInit, OnDestroy {
     }];
   }
 
-  onSelect(data: any): void {}
-  onActivate(data: any): void {}
-  onDeactivate(data: any): void {}
+  onSelect(data: any): void { }
+  onActivate(data: any): void { }
+  onDeactivate(data: any): void { }
 }

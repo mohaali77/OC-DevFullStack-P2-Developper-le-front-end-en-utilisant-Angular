@@ -12,14 +12,17 @@ export class PieChartComponent implements OnInit {
 
   constructor(private router: Router) {
 
-      this.view = [innerWidth / 1, 0];
-    
-   }
+    this.view = [innerWidth / 1, 0];
+
+  }
 
   @Input() data!: Olympic[] | undefined;
 
   pieChartData: DataPie[] = [];
 
+  /**
+   * On définit les différents paramètres du graphique pour l'initialiser 
+   * */
   view: [number, number] = [800, 500];
   showLegend: boolean = false;
   showLabels: boolean = true;
@@ -29,39 +32,49 @@ export class PieChartComponent implements OnInit {
     this.createPieChartData();
   }
 
-  onResize(event:any) {
-      this.view = [event.target.innerWidth / 1, 0];
-    
+  onResize(event: any) {
+    this.view = [event.target.innerWidth / 1, 0];
+
   }
 
+  /**
+   * Fonction qui va créer les données qui seront utilisées par le graphique
+   * Si les donneés sont accessible,
+   * On créé un nouveau tableau "pieChartData" depuis ces données
+   * Et pour chaque pays, on retourne un objet avec le nom du pays et le total des médailles
+   * Avec comme modèle l'interface DataPie
+   */
   createPieChartData(): void {
     if (this.data) {
       this.pieChartData = this.data.map(element => {
         let medalsTotal = 0;
 
-        // On parcourt le tableau "participation" pour chaque objet/pays
         element.participations.forEach(participation => {
-          // On ajoute chaque médaille remportée à chaque participation au total des médailles
           medalsTotal += participation.medalsCount;
         });
 
-        // Pour chaque pays, on retourne un objet avec le nom du pays et le total des médailles
         return { name: element.country, value: medalsTotal } as DataPie;
       });
     }
   }
 
+  /**
+   * Fonction qui permet lors du clic sur un des pays du graphique d'être redirigé vers la page du pays
+   * On récupère le nom du pays cliqué,
+   * On utilise la méthode find pour retrouvé le pays, grâce au nom
+   * Si on retrouve bien l'id du pays, on le renvoi vers la page de détails avec son id
+   * Sinon on le renvoi vers une page d'erreur
+   **/
   onSelect(data: any): void {
-    //fonction qui permet de naviguer vers le pays cliqué
     let countrySelected = data.name;
-    let foundObject = this.data?.find(element => element.country === countrySelected);
+    let foundCountry = this.data?.find(element => element.country === countrySelected);
 
-    if  (foundObject?.id){
-      this.router.navigate(['/details', foundObject?.id]);
-    }else{
+    if (foundCountry?.id) {
+      this.router.navigate(['/details', foundCountry?.id]);
+    } else {
       this.router.navigate(['/**']);
     }
-    
+
 
   }
 
