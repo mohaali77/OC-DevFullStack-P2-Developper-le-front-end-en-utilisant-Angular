@@ -17,7 +17,7 @@ OlympicGamesStarter is a web application built with Angular. This project serves
     ```
 
     ```bash
-        cd OC-DevFullStack-P2-Developper-le-front-end-en-utilisant-Angular  
+    cd OC-DevFullStack-P2-Developper-le-front-end-en-utilisant-Angular  
     ```
 
 
