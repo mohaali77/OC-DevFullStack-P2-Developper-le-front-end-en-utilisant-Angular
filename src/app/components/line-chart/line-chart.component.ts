@@ -9,9 +9,20 @@ import { Olympic } from 'src/app/core/models/Olympic';
 })
 export class LineChartComponent implements OnInit, OnDestroy {
 
+  constructor() {
+  /**
+   * Permet d'ajuster, avant l'initialisation du composant de définir, la proportion du graphique
+   * en fonction de la taille de l'écran 
+   */
+    if (innerWidth <= 768) {
+      this.view = [innerWidth / 1, 400];
+    } else {
+      this.view = [innerWidth / 1.3, 600];
+    }
+  }
+
   @Input() data!: Olympic | undefined;
   lineChartData: DataLine[] | undefined = [];
-
 
   /**
    * On définit les différents paramètres du graphique pour l'initialiser
@@ -30,16 +41,9 @@ export class LineChartComponent implements OnInit, OnDestroy {
   yScaleMin: number = Infinity;
   yScaleMax: number = -Infinity;
 
-  constructor() {
-    if (innerWidth <= 768) {
-      this.view = [innerWidth / 1, 400];
-    } else {
-      this.view = [innerWidth / 1.3, 600];
-    }
-  }
-
   /**
-   * fonction
+   * Fonction qui permet d'ajuster la taille du graphique pour l'adapter à la version mobile et desktop 
+   * lorsque l'utilisateur modifie manuellement la taille de l'écran
    */
 
   onResize(event: any) {
