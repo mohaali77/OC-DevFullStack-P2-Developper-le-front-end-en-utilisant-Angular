@@ -13,7 +13,11 @@ export class OlympicService {
 
   constructor(private http: HttpClient) { }
 
-
+/**
+ * Charge les données initiales des pays olympiques depuis une URL et met à jour le subjecst `olympics$`.
+ *
+ * @returns {Observable<Olympic[]>} - Un observable qui émet les données olympiques des pays.
+ */
   loadInitialData() {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
