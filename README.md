@@ -14,7 +14,7 @@ OlympicGamesStarter is a web application built with Angular. This project serves
 1. Clone the repository:
     ```bash
     git clone https://github.com/mohaali77/OC-DevFullStack-P2-Developper-le-front-end-en-utilisant-Angular
-    cd MyAngularProject
+    cd OC-DevFullStack-P2-Developper-le-front-end-en-utilisant-Angular
     ```
 
 2. Install dependencies:
